@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finvio — Your money, finally makes sense.</title>
+<meta name="description" content="Finvio is the AI-powered personal finance app — track expenses, share finances with your family, and get smart insights that actually help you save.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --brand:#8DC63F;--brand-dark:#6aa82e;--brand-deeper:#4a7a1a;
+  --brand-light:#f0f9e0;--brand-mid:#c8e896;
+  --bg:#f7faf0;--card:#ffffff;
+  --navy:#1a2e0a;--text:#1a2e0a;--muted:#5a7a3a;
+  --border:rgba(141,198,63,0.2);--border2:rgba(141,198,63,0.4)
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+
+nav{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 3rem;position:sticky;top:0;background:rgba(247,250,240,0.93);backdrop-filter:blur(16px);z-index:100;border-bottom:1px solid var(--border)}
+.logo-wrap{display:flex;align-items:center;gap:0.6rem}
+.logo-img{width:36px;height:36px;border-radius:10px;object-fit:cover;display:block}
+.logo-text{font-family:'Syne',sans-serif;font-weight:800;font-size:1.35rem;color:var(--navy);letter-spacing:-0.5px}
+.nav-links{display:flex;gap:1.8rem;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.88rem;transition:color 0.2s}
+.nav-links a:hover{color:var(--navy)}
+.nav-btn{background:var(--brand);color:#fff;border:none;padding:0.55rem 1.3rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:0.86rem;font-weight:500;cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-block}
+.nav-btn:hover{background:var(--brand-dark)}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.nav-hamburger span{width:22px;height:2px;background:var(--navy);border-radius:2px}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(247,250,240,0.98);backdrop-filter:blur(20px);z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:2rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:700;color:var(--navy);text-decoration:none}
+.mobile-close{position:absolute;top:1.5rem;right:1.5rem;font-size:1.5rem;cursor:pointer;color:var(--navy);background:none;border:none;font-family:'DM Sans',sans-serif}
+.mobile-dl{background:var(--brand);color:#fff;padding:0.8rem 2.5rem;border-radius:50px;text-decoration:none;font-size:1rem;font-weight:500;font-family:'DM Sans',sans-serif;margin-top:0.5rem}
+
+.hero{padding:7rem 3rem 5rem;max-width:1000px;margin:0 auto;text-align:center}
+.hero-tag{display:inline-flex;align-items:center;gap:0.5rem;background:var(--brand-light);border:1px solid var(--border2);color:var(--brand-deeper);font-size:0.78rem;padding:0.35rem 1rem;border-radius:50px;margin-bottom:1.6rem;font-weight:500}
+.live-dot{width:6px;height:6px;background:var(--brand);border-radius:50%;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+h1{font-family:'Syne',sans-serif;font-size:4rem;font-weight:800;line-height:1.05;letter-spacing:-2px;color:var(--navy);margin-bottom:1.3rem}
+h1 em{font-style:normal;color:var(--brand-dark)}
+.hero-sub{color:var(--muted);font-size:1.05rem;line-height:1.75;margin:0 auto 2.2rem;max-width:560px}
+.cta-row{display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap;align-items:center}
+.btn-primary{background:var(--brand);color:#fff;border:none;padding:0.9rem 2rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:0.92rem;font-weight:500;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.5rem;box-shadow:0 6px 24px rgba(141,198,63,0.35);text-decoration:none}
+.btn-primary:hover{background:var(--brand-dark);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--navy);border:1.5px solid var(--border2);padding:0.9rem 2rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:0.92rem;cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-block}
+.btn-outline:hover{border-color:var(--brand);color:var(--brand-dark)}
+.ios-badge{display:inline-flex;align-items:center;gap:0.6rem;background:rgba(26,46,10,0.06);border:1.5px solid var(--border2);padding:0.7rem 1.4rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:0.88rem;color:var(--muted);cursor:default}
+.ios-pill{background:var(--brand-light);color:var(--brand-deeper);font-size:0.68rem;font-weight:600;padding:0.15rem 0.6rem;border-radius:50px;border:1px solid var(--border2);white-space:nowrap}
+.hero-badges{display:flex;justify-content:center;gap:2rem;margin-top:2rem;flex-wrap:wrap}
+.hbadge{display:flex;align-items:center;gap:0.4rem;font-size:0.82rem;color:var(--muted)}
+.hbadge-dot{width:5px;height:5px;background:var(--brand);border-radius:50%}
+
+.stats-row{background:var(--brand);padding:2rem 3rem;display:flex;justify-content:space-around;flex-wrap:wrap;gap:1rem}
+.stat{text-align:center}
+.stat-n{font-family:'Syne',sans-serif;font-size:1.9rem;font-weight:800;color:#fff}
+.stat-l{font-size:0.8rem;color:rgba(255,255,255,0.82);margin-top:0.15rem}
+
+.section{padding:5rem 3rem;max-width:1100px;margin:0 auto}
+.section-center{text-align:center}
+.section-center .ssub{margin:0 auto}
+.stag{font-size:0.72rem;color:var(--brand-dark);text-transform:uppercase;letter-spacing:2.5px;font-weight:600;margin-bottom:0.7rem}
+.stitle{font-family:'Syne',sans-serif;font-size:2.3rem;font-weight:800;letter-spacing:-0.8px;color:var(--navy);margin-bottom:0.8rem;line-height:1.15}
+.ssub{color:var(--muted);font-size:0.97rem;line-height:1.75;max-width:500px}
+
+.feats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.8rem}
+.fc{background:#fff;border:1px solid var(--border);border-radius:20px;padding:1.6rem;transition:all 0.25s;position:relative;overflow:hidden}
+.fc::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--brand);transform:scaleX(0);transform-origin:left;transition:transform 0.3s}
+.fc:hover::after{transform:scaleX(1)}
+.fc:hover{border-color:var(--border2);box-shadow:0 8px 30px rgba(141,198,63,0.1);transform:translateY(-2px)}
+.fi{width:42px;height:42px;background:var(--brand-light);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:1rem}
+.ft{font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:700;color:var(--navy);margin-bottom:0.4rem}
+.fd{font-size:0.85rem;color:var(--muted);line-height:1.65}
+
+.pricing-section{padding:5rem 3rem;background:linear-gradient(135deg,#1a2e0a 0%,#2d5016 50%,#1a3a0a 100%);position:relative;overflow:hidden}
+.pricing-section::before{content:'';position:absolute;top:-100px;left:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(141,198,63,0.15) 0%,transparent 70%);pointer-events:none}
+.pricing-section::after{content:'';position:absolute;bottom:-100px;right:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(141,198,63,0.1) 0%,transparent 70%);pointer-events:none}
+.pricing-inner{max-width:860px;margin:0 auto;text-align:center;position:relative;z-index:1}
+.pricing-inner .stag{color:var(--brand-mid)}
+.pricing-inner .stitle{color:#fff}
+.pricing-inner .ssub{color:rgba(255,255,255,0.55);margin:0 auto}
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2.8rem;text-align:left;max-width:700px;margin-left:auto;margin-right:auto}
+.plan{background:rgba(255,255,255,0.07);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.12);border-radius:24px;padding:2rem;transition:transform 0.2s}
+.plan:hover{transform:translateY(-4px)}
+.plan.pop{background:rgba(141,198,63,0.15);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(141,198,63,0.4)}
+.plan-name{font-size:0.75rem;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,0.5);margin-bottom:0.8rem;font-weight:500}
+.plan.pop .plan-name{color:var(--brand-mid)}
+.plan-price{font-family:'Syne',sans-serif;font-size:3rem;font-weight:800;color:#fff;line-height:1;margin-bottom:0.2rem}
+.plan-price sup{font-size:1.3rem;vertical-align:top;margin-top:0.7rem;display:inline-block}
+.plan-mo{font-size:0.82rem;color:rgba(255,255,255,0.45);margin-bottom:1.8rem}
+.plan.pop .plan-mo{color:rgba(255,255,255,0.7)}
+.plan-divider{height:1px;background:rgba(255,255,255,0.1);margin-bottom:1.4rem}
+.plan.pop .plan-divider{background:rgba(141,198,63,0.3)}
+.plan-feats{list-style:none;margin-bottom:2rem;display:flex;flex-direction:column;gap:0.7rem}
+.plan-feats li{font-size:0.86rem;display:flex;align-items:center;gap:0.7rem}
+.plan-feats li.yes{color:rgba(255,255,255,0.9)}
+.plan-feats li.no{color:rgba(255,255,255,0.3)}
+.feat-check{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0}
+.feat-check.y{background:rgba(141,198,63,0.25);color:var(--brand-mid)}
+.feat-check.n{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.25)}
+.plan-btn{width:100%;padding:0.82rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:500;cursor:pointer;transition:all 0.2s;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.08);color:#fff}
+.plan-btn:hover{background:rgba(255,255,255,0.15)}
+.plan.pop .plan-btn{background:var(--brand);border-color:var(--brand);color:#fff}
+.plan.pop .plan-btn:hover{background:var(--brand-dark)}
+
+.family-section{background:var(--navy);padding:5rem 3rem}
+.family-inner{max-width:1060px;margin:0 auto}
+.family-inner .stag{color:var(--brand-mid)}
+.family-inner .stitle{color:#fff}
+.family-inner .ssub{color:rgba(255,255,255,0.55)}
+.family-diagram{display:flex;align-items:flex-start;justify-content:center;margin-top:3.5rem;flex-wrap:wrap;gap:0}
+.fmember{display:flex;flex-direction:column;align-items:center;flex:1;min-width:120px;max-width:155px}
+.fmember-card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:18px;padding:1.2rem 1rem;text-align:center;width:100%}
+.fmember-card.head{background:rgba(141,198,63,0.15);border-color:rgba(141,198,63,0.4)}
+.fmember-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;margin:0 auto 0.6rem;background:rgba(255,255,255,0.08)}
+.fmember-card.head .fmember-avatar{background:rgba(141,198,63,0.2)}
+.fmember-name{font-family:'Syne',sans-serif;font-size:0.88rem;font-weight:700;color:#fff;margin-bottom:0.2rem}
+.fmember-role{font-size:0.65rem;color:rgba(255,255,255,0.5);margin-bottom:0.5rem;line-height:1.4}
+.fmember-tag{display:inline-block;font-size:0.6rem;padding:0.18rem 0.6rem;border-radius:50px;font-weight:500}
+.tag-head{background:rgba(141,198,63,0.2);color:var(--brand-mid)}
+.tag-member{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.6)}
+.fconnector{display:flex;align-items:center;justify-content:center;padding:0 0.15rem;margin-top:3rem;flex-shrink:0}
+.fconn-line{width:14px;height:1.5px;background:rgba(141,198,63,0.4);flex-shrink:0}
+.fconn-code{background:rgba(141,198,63,0.12);border:1px solid rgba(141,198,63,0.3);border-radius:6px;padding:0.18rem 0.3rem;font-size:0.52rem;color:var(--brand-mid);font-weight:600;white-space:nowrap}
+.family-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.5rem}
+.fstep{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:1.4rem}
+.fstep-num{width:28px;height:28px;background:var(--brand);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:#fff;margin-bottom:0.8rem;font-family:'Syne',sans-serif}
+.fstep-title{font-family:'Syne',sans-serif;font-size:0.9rem;font-weight:700;color:#fff;margin-bottom:0.4rem}
+.fstep-desc{font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.6}
+
+.reviews-section{padding:5rem 0;background:var(--bg);overflow:hidden}
+.reviews-header{text-align:center;padding:0 3rem;margin-bottom:3rem}
+.reviews-header .ssub{margin:0 auto}
+.slider-wrap{position:relative;width:100%;overflow:hidden}
+.slider-wrap::before,.slider-wrap::after{content:'';position:absolute;top:0;bottom:0;width:140px;z-index:2;pointer-events:none}
+.slider-wrap::before{left:0;background:linear-gradient(to right,var(--bg) 0%,transparent 100%)}
+.slider-wrap::after{right:0;background:linear-gradient(to left,var(--bg) 0%,transparent 100%)}
+.slider-track{display:flex;gap:1.2rem;width:max-content;animation:slide 45s linear infinite}
+.slider-track:hover{animation-play-state:paused}
+@keyframes slide{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.review-card{background:#fff;border:1px solid var(--border);border-radius:20px;padding:1.6rem 1.8rem;width:290px;flex-shrink:0}
+.review-card:hover{border-color:var(--border2)}
+.review-stars{color:var(--brand);font-size:13px;letter-spacing:1px;margin-bottom:0.7rem}
+.review-title{font-family:'Syne',sans-serif;font-size:0.9rem;font-weight:700;color:var(--navy);margin-bottom:0.45rem}
+.review-text{font-size:0.83rem;color:var(--muted);line-height:1.65}
+.review-rating{display:inline-block;margin-top:0.9rem;font-size:0.7rem;color:var(--brand-deeper);background:var(--brand-light);padding:0.18rem 0.6rem;border-radius:50px;font-weight:500}
+
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:1rem}
+.about-left{display:flex;flex-direction:column;gap:1.2rem}
+.about-img-wrap{background:var(--brand-light);border-radius:24px;padding:2.5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;border:1px solid var(--border2)}
+.about-logo{width:80px;height:80px;border-radius:20px;object-fit:cover;display:block}
+.about-tagline{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--navy);text-align:center}
+.about-sub-tag{font-size:0.82rem;color:var(--muted);text-align:center;line-height:1.6}
+.about-chips-center{display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center}
+.chip{background:var(--brand-light);border:1px solid var(--border2);color:var(--brand-deeper);font-size:0.78rem;padding:0.3rem 0.9rem;border-radius:50px;font-weight:500}
+.founder-card{background:#fff;border:1px solid var(--border2);border-radius:20px;padding:1.4rem 1.6rem;display:flex;align-items:center;gap:1.2rem;box-shadow:0 4px 20px rgba(141,198,63,0.08)}
+.founder-avatar{width:52px;height:52px;border-radius:50%;background:var(--brand);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:#fff;flex-shrink:0}
+.founder-name{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:0.15rem}
+.founder-title{font-size:0.8rem;color:var(--muted)}
+.founder-badge{display:inline-block;background:var(--brand-light);border:1px solid var(--border2);color:var(--brand-deeper);font-size:0.68rem;font-weight:600;padding:0.15rem 0.6rem;border-radius:50px;margin-top:0.4rem}
+.about-text{font-size:0.97rem;color:var(--muted);line-height:1.8;margin-bottom:1.2rem}
+.about-chips-row{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.5rem}
+
+.cta-section{background:var(--brand);padding:5rem 3rem;text-align:center}
+.cta-section h2{font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;color:#fff;letter-spacing:-1px;margin-bottom:0.8rem;line-height:1.1}
+.cta-section p{color:rgba(255,255,255,0.8);font-size:1rem;margin-bottom:2rem;max-width:440px;margin-left:auto;margin-right:auto;line-height:1.7}
+.cta-btns{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;align-items:center}
+.cta-btn-white{background:#fff;color:var(--brand-deeper);border:none;padding:0.9rem 2rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:0.92rem;font-weight:500;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.5rem;text-decoration:none}
+.cta-btn-white:hover{background:var(--brand-light);transform:translateY(-2px)}
+.cta-ios{display:inline-flex;align-items:center;gap:0.6rem;background:rgba(255,255,255,0.15);border:1.5px solid rgba(255,255,255,0.35);padding:0.9rem 1.8rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:0.88rem;color:#fff;cursor:default}
+.cta-ios-pill{background:rgba(255,255,255,0.2);font-size:0.66rem;font-weight:600;padding:0.15rem 0.55rem;border-radius:50px;border:1px solid rgba(255,255,255,0.3)}
+
+.contact-section{padding:5rem 3rem;max-width:1100px;margin:0 auto}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:2.5rem}
+.contact-info{display:flex;flex-direction:column;gap:1.2rem}
+.cinfo-item{display:flex;align-items:flex-start;gap:1rem;background:#fff;border:1px solid var(--border);border-radius:16px;padding:1.2rem 1.4rem}
+.cinfo-icon{width:38px;height:38px;background:var(--brand-light);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.cinfo-label{font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:500;margin-bottom:0.2rem}
+.cinfo-val{font-size:0.9rem;color:var(--navy);font-weight:500}
+.social-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-top:0.5rem}
+.social-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1rem 1.2rem;display:flex;align-items:center;gap:0.8rem;cursor:pointer;transition:all 0.2s;text-decoration:none}
+.social-card:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:0 4px 16px rgba(141,198,63,0.1)}
+.social-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.social-name{font-size:0.86rem;font-weight:500;color:var(--navy)}
+.social-handle{font-size:0.72rem;color:var(--muted)}
+.contact-cta-box{background:var(--brand-light);border:1px solid var(--border2);border-radius:22px;padding:2.5rem 2rem;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:1rem}
+
+.footer-wrap{border-top:1px solid var(--border);padding:2.5rem 3rem;max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.flogo{display:flex;align-items:center;gap:0.5rem}
+.flogo img{width:26px;height:26px;border-radius:7px;object-fit:cover;display:block}
+.flogo span{font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:var(--navy)}
+.flinks{display:flex;gap:1.6rem;flex-wrap:wrap}
+.flinks a{color:var(--muted);text-decoration:none;font-size:0.82rem;transition:color 0.2s}
+.flinks a:hover{color:var(--navy)}
+.fcopy{font-size:0.78rem;color:var(--muted)}
+
+@media(max-width:768px){
+  nav{padding:1rem 1.2rem}
+  .nav-links{display:none}
+  .nav-hamburger{display:flex}
+  .hero{padding:4rem 1.5rem 3rem}
+  h1{font-size:2.4rem;letter-spacing:-1px}
+  .hero-sub{font-size:0.95rem}
+  .cta-row{flex-direction:column;align-items:stretch}
+  .btn-primary,.btn-outline,.ios-badge{width:100%;justify-content:center;text-align:center}
+  .hero-badges{gap:1rem}
+  .stats-row{padding:1.5rem 1.2rem;gap:0.8rem}
+  .stat-n{font-size:1.4rem}
+  .section{padding:3.5rem 1.5rem}
+  .stitle{font-size:1.8rem}
+  .feats{grid-template-columns:1fr;gap:0.8rem}
+  .pricing-section{padding:3.5rem 1.5rem}
+  .plans{grid-template-columns:1fr;max-width:100%;margin-top:2rem}
+  .family-section{padding:3.5rem 1.5rem}
+  .fmember{min-width:75px;max-width:88px}
+  .fmember-card{padding:0.8rem 0.5rem}
+  .fmember-avatar{width:32px;height:32px;font-size:15px}
+  .fmember-name{font-size:0.7rem}
+  .fmember-role{display:none}
+  .fconn-code{display:none}
+  .fconn-line{width:8px}
+  .fconnector{margin-top:2rem}
+  .family-steps{grid-template-columns:1fr}
+  .reviews-header{padding:0 1.5rem}
+  .slider-wrap::before,.slider-wrap::after{width:40px}
+  .about-grid{grid-template-columns:1fr;gap:2rem}
+  .cta-section{padding:3.5rem 1.5rem}
+  .cta-section h2{font-size:2rem}
+  .cta-btns{flex-direction:column;align-items:stretch}
+  .cta-btn-white,.cta-ios{justify-content:center;width:100%}
+  .contact-section{padding:3.5rem 1.5rem}
+  .contact-grid{grid-template-columns:1fr;gap:2rem}
+  .social-grid{grid-template-columns:1fr}
+  .footer-wrap{padding:2rem 1.5rem;flex-direction:column;align-items:flex-start;gap:1.2rem}
+  .flinks{gap:1rem}
+}
+</style>
+</head>
+<body>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="document.getElementById('mobileMenu').classList.remove('open')">✕</button>
+  <a href="#features" onclick="document.getElementById('mobileMenu').classList.remove('open')">Features</a>
+  <a href="#pricing" onclick="document.getElementById('mobileMenu').classList.remove('open')">Pricing</a>
+  <a href="#family" onclick="document.getElementById('mobileMenu').classList.remove('open')">Family Code</a>
+  <a href="#reviews" onclick="document.getElementById('mobileMenu').classList.remove('open')">Reviews</a>
+  <a href="#about" onclick="document.getElementById('mobileMenu').classList.remove('open')">About</a>
+  <a href="#contact" onclick="document.getElementById('mobileMenu').classList.remove('open')">Contact</a>
+  <a class="mobile-dl" href="https://play.google.com/store/apps/details?id=com.finvio" target="_blank">Download Free</a>
+</div>
+
+<nav>
+  <div class="logo-wrap">
+    <img class="logo-img" src="finvio-logo.png" alt="Finvio logo">
+    <span class="logo-text">Finvio</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#family">Family Code</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:1rem">
+    <a class="nav-btn" href="https://play.google.com/store/apps/details?id=com.finvio" target="_blank">Download Free</a>
+    <div class="nav-hamburger" onclick="document.getElementById('mobileMenu').classList.add('open')">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-tag"><span class="live-dot"></span> Now live on Google Play</div>
+  <h1>Your money,<br><em>finally</em> makes sense.</h1>
+  <p class="hero-sub">Finvio is the AI-powered personal finance app — track expenses, share finances with your family, and get smart insights that actually help you save.</p>
+  <div class="cta-row">
+    <a class="btn-primary" href="https://play.google.com/store/apps/details?id=com.finvio" target="_blank">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.33.19.7.24 1.06.15l13.5-7.8-2.83-2.83-11.73 10.48zm16.3-9.4L6.07 6.8 3.18.24C2.82.15 2.45.2 2.12.39L2 .48l13.19 12.07 4.29-2.19zm3.06-5.8a1.5 1.5 0 000-2.6l-3.46-2-3.06 2.8 3.06 2.8 3.46-2zm-17.97-7.3l2.83 2.83L20.9 11.56c.36-.09.64-.33.82-.62L5.63 1.3c-.36-.09-.73-.04-1.06.15z"/></svg>
+      Get on Play Store
+    </a>
+    <div class="ios-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="opacity:0.5"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      iOS / App Store <span class="ios-pill">Coming Soon</span>
+    </div>
+    <a class="btn-outline" href="#features">Learn more</a>
+  </div>
+  <div class="hero-badges">
+    <span class="hbadge"><span class="hbadge-dot"></span> Free to start</span>
+    <span class="hbadge"><span class="hbadge-dot"></span> AI-powered insights</span>
+    <span class="hbadge"><span class="hbadge-dot"></span> Family finance sharing</span>
+    <span class="hbadge"><span class="hbadge-dot"></span> Built for everyone</span>
+  </div>
+</section>
+
+<div class="stats-row">
+  <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Free to start</div></div>
+  <div class="stat"><div class="stat-n">AI+</div><div class="stat-l">Powered insights</div></div>
+  <div class="stat"><div class="stat-n">₹29/mo</div><div class="stat-l">For unlimited AI</div></div>
+  <div class="stat"><div class="stat-n">4.8★</div><div class="stat-l">Average rating</div></div>
+</div>
+
+<div id="features" class="section section-center">
+  <div class="stag">Features</div>
+  <div class="stitle">Everything you need to own your finances.</div>
+  <p class="ssub">Built for real spending patterns — simple, smart, and made for the way you actually manage money.</p>
+  <div class="feats">
+    <div class="fc"><div class="fi">📊</div><div class="ft">Expense &amp; Income Tracking</div><div class="fd">Log every transaction in seconds. Get a clear picture of where your money goes with visual breakdowns and monthly summaries.</div></div>
+    <div class="fc"><div class="fi">👨‍👩‍👧</div><div class="ft">Family Finance Codes</div><div class="fd">One shared code connects your whole family. Track, manage, and view everyone's finances in one unified dashboard.</div></div>
+    <div class="fc"><div class="fi">🤖</div><div class="ft">AI-Powered Insights</div><div class="fd">Get personalized spending analysis and actionable tips from a built-in AI financial assistant on the Pro plan.</div></div>
+    <div class="fc"><div class="fi">📈</div><div class="ft">Smart Spending Reports</div><div class="fd">Rule-based insights on the free plan highlight trends, overspending, and saving opportunities automatically.</div></div>
+    <div class="fc"><div class="fi">📱</div><div class="ft">Built for Android</div><div class="fd">Native Android app available on Google Play. Fast, lightweight, and works great on all devices.</div></div>
+    <div class="fc"><div class="fi">🔐</div><div class="ft">Private &amp; Secure</div><div class="fd">Your financial data stays in your control. Privacy-first architecture from day one — no ads, no data selling.</div></div>
+  </div>
+</div>
+
+<div id="pricing" class="pricing-section">
+  <div class="pricing-inner">
+    <div class="stag">Pricing</div>
+    <div class="stitle">Simple, honest pricing.</div>
+    <p class="ssub">Start free forever. Upgrade to AI when you're ready.</p>
+    <div class="plans">
+      <div class="plan">
+        <div class="plan-name">Free</div>
+        <div class="plan-price"><sup>₹</sup>0</div>
+        <div class="plan-mo">forever free · no credit card needed</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-feats">
+          <li class="yes"><span class="feat-check y">✓</span>Expense &amp; income tracking</li>
+          <li class="yes"><span class="feat-check y">✓</span>Family finance code</li>
+          <li class="yes"><span class="feat-check y">✓</span>Monthly spending summaries</li>
+          <li class="yes"><span class="feat-check y">✓</span>Rule-based smart insights</li>
+          <li class="no"><span class="feat-check n">✗</span>AI financial assistant</li>
+          <li class="no"><span class="feat-check n">✗</span>Deep spending analysis</li>
+          <li class="no"><span class="feat-check n">✗</span>Personalised saving tips</li>
+        </ul>
+        <button class="plan-btn" onclick="window.open('https://play.google.com/store/apps/details?id=com.finvio','_blank')">Get started free</button>
+      </div>
+      <div class="plan pop">
+        <div class="plan-name">AI Pro</div>
+        <div class="plan-price"><sup>₹</sup>29</div>
+        <div class="plan-mo">per month · unlimited AI prompts</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-feats">
+          <li class="yes"><span class="feat-check y">✓</span>Everything in Free</li>
+          <li class="yes"><span class="feat-check y">✓</span>Unlimited AI assistant prompts</li>
+          <li class="yes"><span class="feat-check y">✓</span>Deep spending analysis</li>
+          <li class="yes"><span class="feat-check y">✓</span>Personalised saving tips</li>
+          <li class="yes"><span class="feat-check y">✓</span>Smart budget recommendations</li>
+          <li class="yes"><span class="feat-check y">✓</span>Priority support</li>
+          <li class="yes"><span class="feat-check y">✓</span>Early access to new features</li>
+        </ul>
+        <button class="plan-btn" onclick="window.open('https://play.google.com/store/apps/details?id=com.finvio','_blank')">Upgrade for ₹29/mo</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="family" class="family-section">
+  <div class="family-inner">
+    <div class="stag">Family Code</div>
+    <div class="stitle">One family. One financial picture.</div>
+    <p class="ssub">A unique feature that lets your entire family track and manage finances together in real time — no spreadsheets, no confusion.</p>
+    <div class="family-diagram">
+      <div class="fmember"><div class="fmember-card head"><div class="fmember-avatar">👨</div><div class="fmember-name">Dad</div><div class="fmember-role">Creates account, skips family code</div><span class="fmember-tag tag-head">Head of Family</span></div></div>
+      <div class="fconnector"><div class="fconn-line"></div><div class="fconn-code">Generates &amp; shares code</div><div class="fconn-line"></div></div>
+      <div class="fmember"><div class="fmember-card"><div class="fmember-avatar">👩</div><div class="fmember-name">Mom</div><div class="fmember-role">Signs up, enters family code</div><span class="fmember-tag tag-member">Family Member</span></div></div>
+      <div class="fconnector"><div class="fconn-line"></div><div class="fconn-code">Same family code</div><div class="fconn-line"></div></div>
+      <div class="fmember"><div class="fmember-card"><div class="fmember-avatar">👦</div><div class="fmember-name">Son</div><div class="fmember-role">Signs up, enters family code</div><span class="fmember-tag tag-member">Family Member</span></div></div>
+      <div class="fconnector"><div class="fconn-line"></div><div class="fconn-code">Same family code</div><div class="fconn-line"></div></div>
+      <div class="fmember"><div class="fmember-card"><div class="fmember-avatar">👧</div><div class="fmember-name">Daughter</div><div class="fmember-role">Signs up, enters family code</div><span class="fmember-tag tag-member">Family Member</span></div></div>
+    </div>
+    <div class="family-steps">
+      <div class="fstep"><div class="fstep-num">1</div><div class="fstep-title">Create your account</div><div class="fstep-desc">Sign up on Finvio. Skip the family code field to become the head of your family group automatically.</div></div>
+      <div class="fstep"><div class="fstep-num">2</div><div class="fstep-title">Generate a family code</div><div class="fstep-desc">The head of family gets a unique shareable code. Send it to your family members via WhatsApp or any chat app.</div></div>
+      <div class="fstep"><div class="fstep-num">3</div><div class="fstep-title">Everyone tracks together</div><div class="fstep-desc">Family members sign up and enter the code. All finances are visible and trackable in one shared dashboard — in real time.</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="reviews" class="reviews-section">
+  <div class="reviews-header">
+    <div class="stag">What users are saying</div>
+    <div class="stitle">Loved by users.</div>
+    <p class="ssub">Real reviews from real people who've made Finvio part of their financial life.</p>
+  </div>
+  <div class="slider-wrap">
+    <div class="slider-track" id="sliderTrack"></div>
+  </div>
+</div>
+
+<div id="about" class="section">
+  <div class="about-grid">
+    <div class="about-left">
+      <div class="about-img-wrap">
+        <img class="about-logo" src="finvio-logo.png" alt="Finvio">
+        <div class="about-tagline">Your personal finance OS</div>
+        <div class="about-sub-tag">Built for students, young professionals,<br>families &amp; small businesses.</div>
+        <div class="about-chips-center">
+          <span class="chip">Students</span>
+          <span class="chip">Young Professionals</span>
+          <span class="chip">Families</span>
+          <span class="chip">Small Businesses</span>
+        </div>
+      </div>
+      <div class="founder-card">
+        <div class="founder-avatar">VR</div>
+        <div>
+          <div class="founder-name">Vrishank Reddy</div>
+          <div class="founder-title">Founder &amp; CEO, Finvio</div>
+          <div class="founder-badge">Building the future of personal finance</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="stag">About Finvio</div>
+      <div class="stitle">Finance tools built for real life.</div>
+      <p class="about-text">Finvio was born out of a simple frustration — most finance apps feel complicated and overwhelming. We wanted to build something that actually works for how people manage money day to day.</p>
+      <p class="about-text">We started with the basics: a clean, simple way to track income and expenses manually. Then we added family codes so households could manage finances together. Now we're adding AI-powered insights to help everyone — from college students to small business owners — make smarter financial decisions.</p>
+      <p class="about-text">Our long-term vision is to build a full financial life OS: banking integrations, investment tracking, and wealth insights — all in one app.</p>
+      <div class="about-chips-row">
+        <span class="chip">Early Stage Startup</span>
+        <span class="chip">AI-Powered</span>
+        <span class="chip">Freemium</span>
+        <span class="chip">Family Finance</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-section">
+  <h2>Start managing your<br>money smarter today.</h2>
+  <p>Take control of your finances with Finvio. Free forever, with powerful AI upgrades when you need them.</p>
+  <div class="cta-btns">
+    <a class="cta-btn-white" href="https://play.google.com/store/apps/details?id=com.finvio" target="_blank">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.33.19.7.24 1.06.15l13.5-7.8-2.83-2.83-11.73 10.48zm16.3-9.4L6.07 6.8 3.18.24C2.82.15 2.45.2 2.12.39L2 .48l13.19 12.07 4.29-2.19zm3.06-5.8a1.5 1.5 0 000-2.6l-3.46-2-3.06 2.8 3.06 2.8 3.46-2zm-17.97-7.3l2.83 2.83L20.9 11.56c.36-.09.64-.33.82-.62L5.63 1.3c-.36-.09-.73-.04-1.06.15z"/></svg>
+      Download on Play Store
+    </a>
+    <div class="cta-ios">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      iOS / App Store <span class="cta-ios-pill">Coming Soon</span>
+    </div>
+  </div>
+</div>
+
+<div id="contact" class="contact-section">
+  <div class="stag">Contact &amp; Support</div>
+  <div class="stitle">We're here to help.</div>
+  <div class="contact-grid">
+    <div>
+      <div class="contact-info">
+        <div class="cinfo-item">
+          <div class="cinfo-icon">📧</div>
+          <div><div class="cinfo-label">Email Support</div><div class="cinfo-val">finvio.app@gmail.com</div></div>
+        </div>
+        <div class="cinfo-item">
+          <div class="cinfo-icon">⏱</div>
+          <div><div class="cinfo-label">Response Time</div><div class="cinfo-val">Within 24 hours</div></div>
+        </div>
+      </div>
+      <div style="margin-top:1.5rem">
+        <div class="stag" style="margin-bottom:0.8rem">Follow us</div>
+        <div class="social-grid">
+          <a class="social-card" href="https://www.instagram.com/finvio.app/" target="_blank">
+            <div class="social-icon" style="background:#fce4ec">📸</div>
+            <div><div class="social-name">Instagram</div><div class="social-handle">@finvio.app</div></div>
+          </a>
+          <a class="social-card" href="https://www.linkedin.com/company/finvio/?viewAsMember=true" target="_blank">
+            <div class="social-icon" style="background:#e3f2fd">💼</div>
+            <div><div class="social-name">LinkedIn</div><div class="social-handle">Finvio</div></div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="contact-cta-box">
+      <div style="font-size:2.5rem">💬</div>
+      <div style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:var(--navy)">Have a question?</div>
+      <div style="font-size:0.9rem;color:var(--muted);line-height:1.6;max-width:280px">Reach out to us directly via email or follow us on social media for updates and support.</div>
+      <a href="mailto:finvio.app@gmail.com" style="background:var(--brand);color:#fff;padding:0.75rem 2rem;border-radius:50px;text-decoration:none;font-size:0.9rem;font-weight:500;font-family:'DM Sans',sans-serif">Send us an email</a>
+    </div>
+  </div>
+</div>
+
+<div style="border-top:1px solid var(--border)">
+  <div class="footer-wrap">
+    <div class="flogo">
+      <img src="finvio-logo.png" alt="Finvio">
+      <span>Finvio</span>
+    </div>
+    <div class="flinks">
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#family">Family Code</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="https://sites.google.com/view/finvio-privacy-policy/home" target="_blank">Privacy Policy</a>
+    </div>
+    <div class="fcopy">© 2026 Finvio. All rights reserved.</div>
+  </div>
+</div>
+
+<script>
+const reviews=[
+  {stars:5,title:"Clean and super helpful",text:"Finvio makes tracking my expenses incredibly easy. The interface is clean and the insights actually help me understand where my money is going. Way better than the usual expense tracker apps."},
+  {stars:5,title:"Finally a finance app that makes sense",text:"I've tried several budgeting apps but Finvio is the first one that actually feels simple and useful. The spending insights are great and it's really intuitive."},
+  {stars:5,title:"Perfect for students and young professionals",text:"As a student, I needed something simple to track my spending. Finvio does exactly that and the analytics are surprisingly good."},
+  {stars:5,title:"Amazing UI and smooth experience",text:"The app is super smooth and the design is modern. It helps me stay on top of my finances without feeling complicated."},
+  {stars:5,title:"Great financial awareness tool",text:"Finvio helped me realize how much I was overspending on food and subscriptions. The insights are really eye-opening."},
+  {stars:5,title:"Minimal but powerful",text:"What I like most about Finvio is that it doesn't overwhelm you with features. It focuses on the essentials and does them very well."},
+  {stars:5,title:"Very promising app",text:"I love the concept behind Finvio. It's simple now but I can see it becoming a powerful financial platform in the future."},
+  {stars:5,title:"Simple and effective",text:"Finvio makes expense tracking effortless. Logging transactions is quick and the reports are actually useful."},
+  {stars:4.5,title:"Great app, excited for future features",text:"Finvio is a great expense tracking app with a clean interface. Would love to see more integrations in the future, but overall it's very solid."},
+  {stars:4.5,title:"Very useful but still growing",text:"The app works really well and the design is fantastic. A few more advanced features would make it perfect, but it's already very helpful."}
+];
+function starStr(n){return n===5?'★★★★★':'★★★★½'}
+const track=document.getElementById('sliderTrack');
+[...reviews,...reviews].forEach(r=>{
+  const card=document.createElement('div');
+  card.className='review-card';
+  card.innerHTML=`<div class="review-stars">${starStr(r.stars)}</div><div class="review-title">${r.title}</div><div class="review-text">${r.text}</div><span class="review-rating">${r.stars} / 5</span>`;
+  track.appendChild(card);
+});
+</script>
+</body>
+</html>
