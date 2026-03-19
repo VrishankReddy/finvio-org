@@ -2619,6 +2619,7 @@
       var opened = false;
 
       function openChat() {
+        if (typeof primeSynth === 'function') primeSynth();
         win.classList.add('open');
         bubble.style.display = 'none';
         if (!opened) {
@@ -2648,6 +2649,16 @@
       var recognition = SpeechRecognition ? new SpeechRecognition() : null;
       var synth = window.speechSynthesis;
       var isListening = false;
+      var _synthPrimed = false;
+
+      function primeSynth() {
+        if (!_synthPrimed && synth) {
+          var utt = new SpeechSynthesisUtterance('');
+          utt.volume = 0; // Silent utterance to prime audio context
+          synth.speak(utt);
+          _synthPrimed = true;
+        }
+      }
 
       if (recognition) {
         recognition.continuous = false;
@@ -2680,6 +2691,7 @@
         };
 
         micBtn.addEventListener('click', function() {
+          primeSynth();
           if (isListening) {
              recognition.stop();
           } else {
