@@ -1617,7 +1617,7 @@
         </svg>
         iOS / App Store <span class="ios-pill">Coming Soon</span>
       </div>
-      <a class="btn-outline" href="https://finvio-web.vercel.app" target="_blank"
+      <a class="btn-outline" href="https://finvio.vercel.app" target="_blank"
         style="display:inline-flex;align-items:center;gap:0.5rem;">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
           stroke-linecap="round" stroke-linejoin="round">
@@ -1897,7 +1897,7 @@
         </svg>
         iOS / App Store <span class="cta-ios-pill">Coming Soon</span>
       </div>
-      <a class="cta-btn-outline" href="https://finvio-web.vercel.app" target="_blank">
+      <a class="cta-btn-outline" href="https://finvio.vercel.app" target="_blank">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
           stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="10" />
@@ -2529,7 +2529,7 @@
         { p: [/who is (it|finvio) for/, /students?/, /young professionals?/, /small business/, /who (should|can) use/], r: "Who is Finvio for? 🎯\n\n🎓 Students — track pocket money, stay on budget\n💼 Young Professionals — manage salary, save smarter\n👨‍👩‍👧 Families — shared finance with Family Codes\n🏪 Small Businesses — simple income & expense tracking" },
         { p: [/privacy/, /secure/, /security/, /safe/, /sell (my )?data/, /ads/], r: "Privacy & Security 🔐\n\n• No ads — ever\n• We never sell your data\n• Privacy-first architecture\n• Your financial data stays in your control\n\nRead our Privacy Policy at finviosite.vercel.app" },
         { p: [/who (built|made|created|founded)/, /founder/, /ceo/, /vrishank/, /about (the )?team/, /company/, /vision/, /story/], r: "About Finvio 🌱\n\nFounded by <b>Vrishank Reddy</b> (Founder & CEO).\n\n\"Most finance apps feel complicated. We built something that actually works for how people manage money.\"\n\n📸 <a href='https://www.instagram.com/vrishank.reddy/' target='_blank' style='color:#6aa82e;font-weight:600;'>@vrishank.reddy on Instagram</a>\n💼 <a href='https://www.linkedin.com/in/vrishank-reddy-03a71936b/' target='_blank' style='color:#6aa82e;font-weight:600;'>Vrishank Reddy on LinkedIn</a>\n\nVision: A full financial life OS — banking integrations, investment tracking, wealth insights — all in one app." },
-        { p: [/web (version|app|platform)/, /try (on )?web/, /browser/, /online version/, /finny ai/, /finny/, /web app/], r: "Try Finvio on Web 🌐\n\nWe have a web version with Finny AI — free in your browser!\n\n👉 <a href='https://finvio-web.vercel.app' target='_blank' style='color:#6aa82e;font-weight:600;'>finvio-web.vercel.app</a>\n\nBuilt by <b>Vrishank Reddy</b> (Founder & CEO)\n📸 <a href='https://www.instagram.com/vrishank.reddy/' target='_blank' style='color:#6aa82e;font-weight:600;'>@vrishank.reddy on Instagram</a>\n💼 <a href='https://www.linkedin.com/in/vrishank-reddy-03a71936b/' target='_blank' style='color:#6aa82e;font-weight:600;'>Vrishank Reddy on LinkedIn</a>" },
+        { p: [/web (version|app|platform)/, /try (on )?web/, /browser/, /online version/, /finny ai/, /finny/, /web app/], r: "Try Finvio on Web 🌐\n\nWe have a web version with Finny AI — free in your browser!\n\n👉 <a href='https://finvio.vercel.app' target='_blank' style='color:#6aa82e;font-weight:600;'>finvio-web.vercel.app</a>\n\nBuilt by <b>Vrishank Reddy</b> (Founder & CEO)\n📸 <a href='https://www.instagram.com/vrishank.reddy/' target='_blank' style='color:#6aa82e;font-weight:600;'>@vrishank.reddy on Instagram</a>\n💼 <a href='https://www.linkedin.com/in/vrishank-reddy-03a71936b/' target='_blank' style='color:#6aa82e;font-weight:600;'>Vrishank Reddy on LinkedIn</a>" },
         { p: [/contact/, /support/, /email/, /reach (out|you)/, /get in touch/, /response time/, /help/], r: "Contact & Support 📧\n\n📧 Email: finvio.app@gmail.com\n⏱ Response: within 24 hours\n\n📸 Instagram: @finvio.app\n💼 LinkedIn: Finvio\n\nWe read every message!" },
         { p: [/track(ing)?/, /log (expenses?|transactions?|income)/, /expense (tracker|tracking)/], r: "Expense & Income Tracking 📊\n\n• Log every transaction in seconds\n• Track both income and expenses\n• Visual breakdowns of spending\n• Monthly summaries\n• Spot trends and overspending automatically\n\nFree plan includes full tracking + rule-based insights!" },
         { p: [/ai (insights?|analysis|tips?|assistant)/, /smart insights?/, /spending analysis/, /how (does|do) the ai work/], r: "AI-Powered Insights 🤖\n\n📊 Free — Rule-based Smart Insights\nAutomatically highlights trends and overspending.\n\n🤖 AI Pro (₹29/mo)\n• Unlimited AI assistant\n• Personalised spending analysis\n• Actionable saving tips for YOU\n• Smart budget recommendations" },
@@ -2650,6 +2650,26 @@
       var synth = window.speechSynthesis;
       var isListening = false;
       var _synthPrimed = false;
+      var finnyVoice = null;
+
+      function loadVoices() {
+        if (!synth) return;
+        var voices = synth.getVoices();
+        if (!voices.length) return;
+        
+        // Prioritize specific high-quality female voices, fallback to any Female/US/UK voice
+        finnyVoice = voices.find(function(v) { return v.name.includes('Samantha') || v.name.includes('Victoria') || v.name.includes('Karen') || v.name.includes('Tessa') || v.name.includes('Google UK English Female') || v.name.includes('Google US English'); }) ||
+                     voices.find(function(v) { return v.name.includes('Female') || v.name.includes('female'); }) ||
+                     voices.find(function(v) { return (v.lang === 'en-US' || v.lang === 'en-GB') && v.name.includes('Zira'); }) ||
+                     null;
+      }
+
+      if (synth) {
+        if (synth.onvoiceschanged !== undefined) {
+          synth.onvoiceschanged = loadVoices;
+        }
+        loadVoices();
+      }
 
       function primeSynth() {
         if (!_synthPrimed && synth) {
@@ -2727,6 +2747,9 @@
              // Strip out emojis for speech synthesis
              var cleanReply = reply.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '');
              var utterance = new SpeechSynthesisUtterance(cleanReply);
+             if (finnyVoice) {
+               utterance.voice = finnyVoice;
+             }
              utterance.onstart = function() {
                if (stopBtn && micBtn) {
                  micBtn.style.display = 'none';
